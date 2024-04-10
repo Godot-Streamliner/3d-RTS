@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvl3i1ujyiou5"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_djg35"]
+vertices = PackedVector3Array(-299.5, 0.5, -299.5, -299.5, 0.5, 299.5, 299.5, 0.5, 299.5, 299.5, 0.5, -299.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4edy7"]
+albedo_color = Color(0.192157, 0.364706, 0.419608, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h4uxn"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1se36"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="World" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_djg35")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4edy7")
+mesh = SubResource("PlaneMesh_h4uxn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1se36")
