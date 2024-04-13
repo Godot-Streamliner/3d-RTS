@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvl3i1ujyiou5"]
+[gd_scene load_steps=9 format=3 uid="uid://bvl3i1ujyiou5"]
 
 [ext_resource type="Material" uid="uid://d0i3q6j44jwns" path="res://Assets/Materials/FloorMat.tres" id="1_ljmny"]
 [ext_resource type="Script" path="res://Scripts/RTSController.gd" id="1_tvrn3"]
@@ -12,6 +12,21 @@ size = Vector2(300, 300)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3gec7"]
 data = PackedVector3Array(150, 0, 150, -150, 0, 150, 150, 0, -150, -150, 0, 150, -150, 0, -150, 150, 0, -150)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dknxa"]
+
+[sub_resource type="Sky" id="Sky_y1tln"]
+sky_material = SubResource("ProceduralSkyMaterial_dknxa")
+
+[sub_resource type="Environment" id="Environment_vrpeu"]
+background_mode = 2
+sky = SubResource("Sky_y1tln")
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.025
+volumetric_fog_detail_spread = 4.25
+volumetric_fog_temporal_reprojection_amount = 0.99
 
 [node name="World" type="Node3D"]
 
@@ -37,3 +52,6 @@ script = ExtResource("1_tvrn3")
 
 [node name="Camera3D" type="Camera3D" parent="RTSController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 17)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vrpeu")

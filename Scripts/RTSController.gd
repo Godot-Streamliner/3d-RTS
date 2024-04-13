@@ -10,6 +10,11 @@ var m_pos := Vector2()
 func _ready():
 	pass # Replace with function body.
 
+func _input(event):
+	if event.is_action_pressed("wheel_down"):
+		cam.fov = lerp(cam.fov, 75.0, 0.25)
+	elif event.is_action_pressed("wheel_up"):
+		cam.fov = lerp(cam.fov, 45.0, 0.25)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
