@@ -1,16 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvl3i1ujyiou5"]
+[gd_scene load_steps=6 format=3 uid="uid://bvl3i1ujyiou5"]
+
+[ext_resource type="Material" uid="uid://d0i3q6j44jwns" path="res://Assets/Materials/FloorMat.tres" id="1_ljmny"]
+[ext_resource type="Script" path="res://Scripts/RTSController.gd" id="1_tvrn3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_djg35"]
-vertices = PackedVector3Array(-299.5, 0.5, -299.5, -299.5, 0.5, 299.5, 299.5, 0.5, 299.5, 299.5, 0.5, -299.5)
+vertices = PackedVector3Array(-149.5, 0.5, -149.5, -149.5, 0.5, 149.5, 149.5, 0.5, 149.5, 149.5, 0.5, -149.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4edy7"]
-albedo_color = Color(0.192157, 0.364706, 0.419608, 1)
+[sub_resource type="PlaneMesh" id="PlaneMesh_345d8"]
+size = Vector2(300, 300)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_h4uxn"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1se36"]
-data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3gec7"]
+data = PackedVector3Array(150, 0, 150, -150, 0, 150, 150, 0, -150, -150, 0, 150, -150, 0, -150, 150, 0, -150)
 
 [node name="World" type="Node3D"]
 
@@ -18,11 +19,21 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 navigation_mesh = SubResource("NavigationMesh_djg35")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
-transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_4edy7")
-mesh = SubResource("PlaneMesh_h4uxn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+material_override = ExtResource("1_ljmny")
+mesh = SubResource("PlaneMesh_345d8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_1se36")
+shape = SubResource("ConcavePolygonShape3D_3gec7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.919039, 0.268755, -0.288336, 0.0978786, 0.552993, 0.827417, 0.381821, -0.78865, 0.481917, 0, 0, 0)
+
+[node name="RTSController" type="Node3D" parent="."]
+transform = Transform3D(1, -6.34496e-16, 2.00056e-16, 2.00056e-16, 0.573576, 0.819152, -6.34496e-16, -0.819152, 0.573576, 0, 0, 0)
+script = ExtResource("1_tvrn3")
+
+[node name="Camera3D" type="Camera3D" parent="RTSController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 17)
